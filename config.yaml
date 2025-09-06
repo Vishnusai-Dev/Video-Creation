@@ -1,0 +1,55 @@
+# Swiggy Instamart Video Automation Config
+# NOTE: Some provided guidelines had conflicting values (2:1 vs 1920x1080, 120fps vs 9–10MB target).
+# The script exposes these as parameters below; defaults aim for visual quality + reasonable file size.
+
+# Canvas & output
+frame_width: 1920        # Use 1920 with 2:1 => height 960; or set height to 1080 if you truly want 16:9
+frame_height: 960        # 2:1 == 1920x960. Set to 1080 if you need 1920x1080.
+fps: 30                  # 120fps is supported but will balloon file size and not necessary for slides
+duration_per_slide: 5    # seconds per slide
+max_slides: 5
+target_bitrate: "4M"     # adjust to hit ~9–10MB for short videos; two-pass is used when possible
+
+# Brand & styling
+background_color: "#FFFFFF"
+left_panel_ratio: 0.5               # 50:50 image-to-content ratio
+font_title_path: ""                 # path to Proxima Nova Bold TTF (user-supplied). If blank, uses a built-in fallback.
+font_body_path: ""                  # path to Proxima Nova Medium TTF (user-supplied). If blank, uses fallback.
+title_font_size_px: 55
+body_font_size_px: 50
+bullet_color_hex: "#78185A"
+bullet_icon: "arrow"                # currently supports 'arrow' ▶-style
+title_case_style: "standard"        # 'standard' | 'upper' | 'sentence'
+text_max_words_per_bullet: 4        # enforce concise USPs
+
+# Logo
+logo_path: "assets/swiggy_instamart_logo.png"   # place a local PNG here
+logo_position: "top_right"          # 'top_right', 'top_left'
+logo_margin_px: 28
+
+# Images
+images_folder: "inputs/images"      # where your product images live
+remove_bg: true                     # uses 'rembg' if installed; otherwise falls back to simple placement
+upscale_to_min_side_px: 1000        # upscales smaller images to this min side using Lanczos
+skip_if_blurry: true                # requires OpenCV; if unavailable, this is ignored
+barcode_filename_keywords: ["barcode", "qr", "code128"]
+
+# Text content
+excel_path: "inputs/slides_template.xlsx"
+title_col: "title"
+bullets_cols: ["bullet1", "bullet2", "bullet3"]
+dimensions_col: "dimensions_text"    # optional overlay note
+capacity_col: "capacity_text"        # optional overlay note
+image_col: "image_filename"
+skip_col: "skip"
+
+# Output
+music_path: ""                      # optional path to a background music track (mp3/wav)
+output_path: "outputs/final_video.mp4"
+
+# Advanced
+edge_padding_px: 48
+text_line_spacing_px: 10
+safe_area_inset_px: 48
+animate_from_sides: true           # image enters from right, text from left
+dimension_marking: true            # shows capacity/dimensions ribbon if provided
